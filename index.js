@@ -22,6 +22,12 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // API Routes
+
+// Add this code to your existing backend index.js file
+app.get('/', (req, res) => {
+    res.send('Welcome to the To-Do API!'); // A simple message
+  });
+  
 // Fetch all todos
 app.get('/todos', async (req, res) => {
     const todos = await Todo.find();
