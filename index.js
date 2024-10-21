@@ -22,12 +22,6 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // API Routes
-
-// Add this code to your existing backend index.js file
-app.get('/', (req, res) => {
-    res.send('Welcome to the To-Do API!'); // A simple message
-  });
-  
 // Fetch all todos
 app.get('/todos', async (req, res) => {
     const todos = await Todo.find();
@@ -51,6 +45,14 @@ app.delete('/todos/:id', async (req, res) => {
 app.put('/todos/:id', async (req, res) => {
     const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedTodo);
+});
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, 'frontend/build'))); // Adjust path if needed
+
+// The "catchall" handler: for any request that doesn't match one above, send back the React app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
 
 // Start the server
