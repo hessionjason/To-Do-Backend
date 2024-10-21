@@ -21,6 +21,11 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoSchema);
 
+// Root route for '/'
+app.get('/', (req, res) => {
+    res.send('Welcome to the To-Do API');
+});
+
 // API Routes
 // Fetch all todos
 app.get('/todos', async (req, res) => {
@@ -48,7 +53,7 @@ app.put('/todos/:id', async (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
